@@ -1,0 +1,22 @@
+
+
+
+
+Prefix ^s
+
+Prefix + <key>
+
+<key>   [Command]
+c       Create new window
+w       Open Window treelist
+l       Next window
+1-9     Goto Window
+h       Split Horiz
+v       Split Vert
+,       Rename Window
+&       Kill window
+f       Find Window
+Arrows  move to window in direction
+z       zoom
+x       Close pane
+
