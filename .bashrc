@@ -13,92 +13,6 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-
-#-------------------------------------------------------------
-# Source global definitions (if any)
-#-------------------------------------------------------------
-
-
-if [ -f /etc/bashrc ]; then
-      . /etc/bashrc   # --> Read /etc/bashrc, if present.
-fi
-
-
-case $TERM in
-	alacritty )
-	export TERM=xterm-256color
-	;;
-	* )
-	export TERM=$TERM
-	;;
-esac
-
-#--------------------------------------------------------------
-#  Automatic setting of $DISPLAY (if not set already).
-#  This works for me - your mileage may vary. . . .
-#  The problem is that different types of terminals give
-#+ different answers to 'who am i' (rxvt in particular can be
-#+ troublesome) - however this code seems to work in a majority
-#+ of cases.
-#--------------------------------------------------------------
-
-function get_xserver ()
-{
-    case $TERM in
-        xterm* )
-            XSERVER=$(who am i | awk '{print $NF}' | tr -d ')''(' )
-            # Ane-Pieter Wieringa suggests the following alternative:
-            #  I_AM=$(who am i)
-            #  SERVER=${I_AM#*(}
-            #  SERVER=${SERVER%*)}
-            XSERVER=${XSERVER%%:*}
-            ;;
-            aterm | rxvt)
-            # Find some code that works here. ...
-            ;;
-    esac
-}
-
-if [ -z ${DISPLAY:=""} ]; then
-    get_xserver
-    if [[ -z ${XSERVER}  || ${XSERVER} == $(hostname) ||
-       ${XSERVER} == "unix" ]]; then
-          DISPLAY=":0.0"          # Display on local host.
-    else
-       DISPLAY=${XSERVER}:0.0     # Display on remote host.
-    fi
-fi
-
-export DISPLAY
-
-#-------------------------------------------------------------
-# Some settings
-#-------------------------------------------------------------
-
-#set -o nounset     # These  two options are useful for debugging.
-#set -o xtrace
-
-ulimit -S -c 0      # Don't want coredumps.
-set -o notify
-set -o noclobber
-set -o ignoreeof
-
-# Enable options:
-shopt -s cdspell
-shopt -s cdable_vars
-shopt -s checkhash
-shopt -s checkwinsize
-shopt -s sourcepath
-shopt -s no_empty_cmd_completion
-shopt -s cmdhist
-shopt -s histappend histreedit histverify
-shopt -s extglob       # Necessary for programmable completion.
-
-# Disable options:
-shopt -u mailwarn
-unset MAILCHECK        # Don't want my shell to warn me of incoming mail.
-
-
 #-------------------------------------------------------------
 # Greeting, motd etc. ...
 #-------------------------------------------------------------
@@ -141,8 +55,94 @@ On_White='\e[47m'       # White
 
 NC="\e[m"               # Color Reset
 
+#-------------------------------------------------------------
+# Some settings
+#-------------------------------------------------------------
+
+#set -o nounset     # These  two options are useful for debugging.
+#set -o xtrace
+
+ulimit -S -c 0      # Don't want coredumps.
+set -o notify
+set -o noclobber
+set -o ignoreeof
+
+# Enable options:
+shopt -s cdspell
+shopt -s cdable_vars
+shopt -s checkhash
+shopt -s checkwinsize
+shopt -s sourcepath
+shopt -s no_empty_cmd_completion
+shopt -s cmdhist
+shopt -s histappend histreedit histverify
+shopt -s extglob       # Necessary for programmable completion.
+
+# Disable options:
+shopt -u mailwarn
+unset MAILCHECK        # Don't want my shell to warn me of incoming mail.
+
+#-------------------------------------------------------------
+# Source global definitions (if any)
+#-------------------------------------------------------------
+
+
+if [ -f /etc/bashrc ]; then
+      . /etc/bashrc   # --> Read /etc/bashrc, if present.
+fi
+
+
+case $TERM in
+	alacritty )
+	export TERM=xterm-256color
+	;;
+	* )
+	export TERM=$TERM
+	;;
+esac
+
+#--------------------------------------------------------------
+#  Automatic setting of $DISPLAY (if not set already).
+#  This works for me - your mileage may vary. . . .
+#  The problem is that different types of terminals give
+#+ different answers to 'who am i' (rxvt in particular can be
+#+ troublesome) - however this code seems to work in a majority
+#+ of cases.
+#--------------------------------------------------------------
+
+function get_xserver ()
+{
+    case $TERM in
+        xterm* )
+            XSERVER=$(who am i | awk '{print $NF}' | tr -d ')''(' )
+            XSERVER=${XSERVER%%:*}
+            ;;
+            aterm | rxvt)
+            # Find some code that works here. ...
+            ;;
+    esac
+}
+
+if [ -z ${DISPLAY:=""} ]; then
+    get_xserver
+    if [[ -z ${XSERVER}  || ${XSERVER} == $(hostname) ||
+       ${XSERVER} == "unix" ]]; then
+          DISPLAY=":0.0"          # Display on local host.
+    else
+       DISPLAY=${XSERVER}:0.0     # Display on remote host.
+    fi
+fi
+
+export DISPLAY
 
 ALERT=${BWhite}${On_Red} # Bold White on red background
+
+#---------------------------------------------------------------
+#  Startup and shutdown stuff - show a fortune if available and
+#  and then maybe the hostname if figlet installed
+#
+#  For exit - just Hasta out!
+#---------------------------------------------------------------
 
 echo -e "${BCyan}This is BASH ${BRed}${BASH_VERSION%.*}${BCyan}\
 - DISPLAY on ${BRed}$DISPLAY${NC}\n"

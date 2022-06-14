@@ -13,16 +13,18 @@
 #-------------------
 
 alias debug="set -o nounset; set -o xtrace"
+alias undebug="set +o nounset; set +o xtrace"
+
 alias rm='rm -I'
 alias cp='cp -i'
 alias mv='mv -i'
+
 # -> Prevents accidentally clobbering files.
 alias mkdir='mkdir -p'
 
 alias h='history'
 alias j='jobs -l'
 alias which='type -a'
-alias ..='cd ..'
 alias free='free -h'
 
 # Pretty-print of some PATH variables:
@@ -83,7 +85,7 @@ alias moer='more'
 alias moew='more'
 alias kk='ll'
 alias sudp='sudo'
-
+alias ls-al='ls -al'
 
 #-------------------------------------------------------------
 # Color Aliases - woot
@@ -93,7 +95,6 @@ alias ip='ip -color=auto'
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 alias cat='bat -pp'
-
 
 #-------------------------------------------------------------
 # A few fun ones
