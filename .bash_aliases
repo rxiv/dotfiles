@@ -29,7 +29,6 @@ alias free='free -h'
 alias path='echo -e ${PATH//:/\\n}'
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 
-
 alias du='du -kh'    # Makes a more readable output.
 alias df='df -kTh'
 
@@ -74,7 +73,6 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-
 #-------------------------------------------------------------
 # Spelling typos - highly personnal and keyboard-dependent :-)
 #-------------------------------------------------------------
@@ -105,3 +103,8 @@ alias cat='bat -pp'
 alias top='xtitle Processes on $HOSTNAME && top'
 alias make='xtitle Making $(basename $PWD) ; make'
 
+#-------------------------------------------------------------
+# Lazyass typer aliases
+#-------------------------------------------------------------
+
+alias lg='lazygit'
