@@ -430,7 +430,7 @@ if utils.executable('pylsp') then
       pylsp = {
         plugins = {
           pylint = { enabled = true, executable = "pylint" },
-          pyflakes = { enabled = false },
+          pyflakes = { enabled = true },
           pycodestyle = { enabled = false },
           jedi_completion = { fuzzy = true },
           pyls_isort = { enabled = true },
@@ -527,9 +527,9 @@ local opts = {
 require('rust-tools').setup(opts)
 
 
--- local sumneko_binary_path = fn.exepath('lua-language-server')                                                                                                                                                                                             1 if vim.g.is_mac or vim.g.is_linux and sumneko_binary_path ~= "" then
-local sumneko_binary_path = '/usr/bin/lua-language-server'
-if utils.executable(sumneko_binary_path) then
+-- local sumneko_binary_path = '/usr/bin/lua-language-server'
+local sumneko_binary_path = fn.exepath("lua-language-server")
+if sumneko_binary_path ~= "" then
     local sumneko_root_path = fn.fnamemodify(sumneko_binary_path, ":h:h:h")
 
     local runtime_path = vim.split(package.path, ";")
