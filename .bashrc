@@ -83,7 +83,6 @@ set -o notify
 set -o noclobber
 set -o ignoreeof
 
-
 # Enable options:
 shopt -s cdspell
 shopt -s cdable_vars
@@ -217,7 +216,6 @@ elif [[ ${USER} != $(logname) ]]; then
 else
     SU=${BCyan}         # User is normal (well ... most of us are).
 fi
-
 
 
 NCPU=$(grep -c 'processor' /proc/cpuinfo)    # Number of CPUs
@@ -491,6 +489,8 @@ function mydf()         # Pretty-print of 'df' output.
 }
 
 
+export IP=`ip route | awk 'NR==1{print $9}'`
+
 function my_ip() # Get IP adress on ethernet.
 {
     MY_IP=$(ip route | grep default | awk '{ print $9} ')
@@ -547,6 +547,5 @@ if [ -f ~/.bash_completion ]; then
     . ~/.bash_completion
 fi
 
-export IP=`ip route | awk 'NR==1{print $9}'`
 eval $(keychain --eval --quiet id_rsa_nopw)
 
