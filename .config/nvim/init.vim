@@ -194,13 +194,12 @@ set statusline+=\ <0x%02B>\ \|
 set statusline+=\ %p%%
 set statusline+=\ \|\ %l,%-3c
 
-
-let g:UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
-let g:UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
-let g:UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
-
 lua << EOF
 
+
+local fn = vim.fn
+local api = vim.api
+local lsp = vim.lsp
 
 -- Insert mode keys - quick go to stand end end of line and delete char
 vim.keymap.set('i', '<C-A>', '<HOME>')
@@ -243,28 +242,10 @@ require("nvim-treesitter.configs").setup {
     },
 }
 
--- Change diagnostic signs.
-vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = "!", texthl = "DiagnosticSignWarn" })
-vim.fn.sign_define("DiagnosticSignInformation", { text = "", texthl = "DiagnosticSignInfo" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
-
--- global config for diagnostic
-vim.diagnostic.config({
-  underline = false,
-  virtual_text = true,
-  signs = true,
-  severity_sort = true,
-})
-
--- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
-})
 
 local has_words_before = function()
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line-1, line, true)[1]:sub(col, col):match("%s") == nil
+    local line, col = unpack(api.nvim_win_get_cursor(0))
+    return col ~= 0 and api.nvim_buf_get_lines(0, line-1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 local cmp = require("cmp")
@@ -353,10 +334,6 @@ cmp.setup.cmdline(':', {
 })
 
 
-local fn = vim.fn
-local api = vim.api
-local lsp = vim.lsp
-
 local utils = require("utils")
 
 local custom_attach = function(client, bufnr)
@@ -364,29 +341,29 @@ local custom_attach = function(client, bufnr)
   local opts = { silent = true, buffer = bufnr }
   local opts2 = { focusable = false, close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
                   border = 'rounded', source = 'always',  prefix = ' '}
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "<C-]>", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-    vim.keymap.set("n", "<C-h>", vim.lsp.buf.signature_help, opts)
-    vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
-    vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
-    vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
-    vim.keymap.set("n", "<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
-    vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
+    vim.keymap.set("n", "gD", lsp.buf.declaration, opts)
+    vim.keymap.set("n", "gd", lsp.buf.definition, opts)
+    vim.keymap.set("n", "<C-]>", lsp.buf.definition, opts)
+    vim.keymap.set("n", "gi", lsp.buf.implementation, opts)
+    vim.keymap.set("n", "K", lsp.buf.hover, opts)
+    vim.keymap.set("n", "<C-h>", lsp.buf.signature_help, opts)
+    vim.keymap.set("n", "<leader>wa", lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set("n", "<leader>wr", lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set("n", "<leader>vws", lsp.buf.workspace_symbol, opts)
+    vim.keymap.set("n", "<leader>wl", function() print(vim.inspect(lsp.buf.list_workspace_folders())) end, opts)
+    vim.keymap.set("n", "<leader>vrn", lsp.buf.rename, opts)
     --* vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float(nil, {{opts2}, scope="line"}), opts)
-    vim.keymap.set("n", "vrr", vim.lsp.buf.references, opts)
+    vim.keymap.set("n", "vrr", lsp.buf.references, opts)
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
     vim.keymap.set("n", "<leader>q", function() vim.diagnostic.setqflist({open = true}) end, opts)
-    vim.keymap.set("n", "<leader>rca", vim.lsp.buf.code_action, opts)
-    vim.keymap.set("n", "<leader>lf", vim.lsp.buf.formatting, opts)
+    vim.keymap.set("n", "<leader>rca", lsp.buf.code_action, opts)
+    vim.keymap.set("n", "<leader>lf", lsp.buf.formatting, opts)
     --* vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist({open = true}), opts)
 
-  vim.api.nvim_create_autocmd("CursorHold", {
+    api.nvim_create_autocmd("CursorHold", {
     buffer=bufnr,
     callback = function()
       local opts = {
@@ -414,10 +391,10 @@ local custom_attach = function(client, bufnr)
 
   -- Set some key bindings conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
-    vim.keymap.set("n", "<space>f", vim.lsp.buf.formatting_sync, opts)
+    vim.keymap.set("n", "<space>f", lsp.buf.formatting_sync, opts)
   end
   if client.resolved_capabilities.document_range_formatting then
-    vim.keymap.set("x", "<space>f", vim.lsp.buf.range_formatting, opts)
+    vim.keymap.set("x", "<space>f", lsp.buf.range_formatting, opts)
   end
 
   -- The blow command will highlight the current variable and its usages in the buffer.
@@ -546,27 +523,69 @@ local opts = {
       }
     },
 }
+
 require('rust-tools').setup(opts)
 
---if utils.executable('rust-analyzer') then
---    lspconfig.rust_analyzer.setup({
---        on_attach = custom_attach,
---        capabilities = capabilities,
---        filetypes = { "rs" },
---        settings = {
---            rust = {
---                unstable_features = true,
---                build_on_save = false,
---                all_features = true,
---            },
---        },
---        flags = {
---            debounce_text_changes = 500,
---        },
---})
---else
---    vim.notify("rust-analyzer not found!", 'warn', {title = 'Nvim-config'})
---end
+
+-- local sumneko_binary_path = fn.exepath('lua-language-server')                                                                                                                                                                                             1 if vim.g.is_mac or vim.g.is_linux and sumneko_binary_path ~= "" then
+local sumneko_binary_path = '/usr/bin/lua-language-server'
+if utils.executable(sumneko_binary_path) then
+    local sumneko_root_path = fn.fnamemodify(sumneko_binary_path, ":h:h:h")
+
+    local runtime_path = vim.split(package.path, ";")
+    table.insert(runtime_path, "lua/?.lua")
+    table.insert(runtime_path, "lua/?/init.lua")
+
+    lspconfig.sumneko_lua.setup({
+        on_attach = custom_attach,
+        cmd = { sumneko_binary_path, "-E", sumneko_root_path .. "/main.lua" },
+        settings = {
+            Lua = {
+                runtime = {
+                    -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                    version = "LuaJIT",
+                    -- Setup your lua path
+                    path = runtime_path,
+                },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { "vim" },
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
+            },
+        },
+        capabilities = capabilities,
+    })
+else
+    vim.notify("sumneko not found!", 'warn', {title = 'Nvim-config'})
+end
+
+-- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
+lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, {
+  border = "rounded",
+})
+
+-- Change diagnostic signs.
+vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "!", texthl = "DiagnosticSignWarn" })
+vim.fn.sign_define("DiagnosticSignInformation", { text = "", texthl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+
+-- global config for diagnostic
+vim.diagnostic.config({
+  underline = false,
+  virtual_text = true,
+  signs = true,
+  severity_sort = true,
+})
+
 
 local snippets_paths = function()
 	local plugins = { "friendly-snippets" }
