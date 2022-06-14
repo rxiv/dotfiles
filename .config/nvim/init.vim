@@ -98,6 +98,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 " Misc
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'cohama/lexima.vim'
 
 " Cleanup
 Plug 'sbdchd/neoformat'
