@@ -109,3 +109,4 @@ alias make='xtitle Making $(basename $PWD) ; make'
 #-------------------------------------------------------------
 
 alias lg='lazygit'
+alias yt='yt-dlp'

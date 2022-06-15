@@ -3,3 +3,9 @@
 	name = rxiv
 [init]
 	defaultBranch = main
+
+[core]
+    editor = nvim
+
+[color]
+        ui = true

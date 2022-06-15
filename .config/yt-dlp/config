@@ -1,0 +1,5 @@
+--restrict-filenames
+-x
+-o ~/music/%(title)s.%(ext)s
+--audio-quality 7
+
