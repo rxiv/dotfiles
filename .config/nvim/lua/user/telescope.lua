@@ -5,7 +5,7 @@ end
 
 local actions = require "telescope.actions"
 -- telescope.load_extension "media_files"
--- telescope.load_extension "ui-select"
+telescope.load_extension "ui-select"
 -- telescope.load_extension "file_browser"
 telescope.load_extension "fzf"
 local icons = require("user.icons")
@@ -121,12 +121,12 @@ telescope.setup {
         },
       },
     },
-    -- ["ui-select"] = {
-    --   require("telescope.themes").get_dropdown {
-    --     previewer = false,
-    --     -- even more opts
-    --   },
-    -- },
+    ["ui-select"] = {
+        require("telescope.themes").get_dropdown {
+            previewer = false,
+         -- even more opts
+       },
+     },
   },
 }
 

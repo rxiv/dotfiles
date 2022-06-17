@@ -32,12 +32,12 @@ end
 
 function M.vmap(l, r, opts)
     opts = vim.tbl_extend("force", {noremap = true, silent = true}, opts or {})
-    vim.keymap.set("i", l, r, opts)
+    vim.keymap.set("v", l, r, opts)
 end
 
 function M.imap(l, r, opts)
     opts = vim.tbl_extend("force", {noremap = true, silent = true}, opts or {})
-    vim.keymap.set("v", l, r, opts)
+    vim.keymap.set("i", l, r, opts)
 end
 
 function M.xmap(l, r, opts)

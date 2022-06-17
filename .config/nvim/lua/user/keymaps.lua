@@ -52,7 +52,6 @@ vmap(">", ">gv")
 -- Move Text up and down
 vmap("<A-Up>",   ":m .+1<CR>==")
 vmap("<A-Down>", ":m .-2<CR>==")
-vmap("p", "_dP")
 
 -- Visual Block --
 -- Move Text up and down

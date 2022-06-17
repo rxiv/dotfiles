@@ -1,6 +1,6 @@
 local fn = vim.fn
 local call = vim.call
-local plug_install = 0
+local pinstall = 0
 
 local config_path = fn.stdpath('config')
 local plug_url = 'https://raw.github.com/junegunn/vim-plug/master/plug.vim'
@@ -10,7 +10,7 @@ local plug_install = config_path .. '/plugged'
 if fn.filereadable(fn.expand(plug_path)) == 0 then
     vim.cmd('silent !curl -fLo ' .. plug_path .. ' --create-dirs ' .. plug_url)
     vim.cmd('silent !source ' .. fn.fnameescape(plug_path) )
-    plug_install = 1
+    pinstall = 1
 end
 
 local Plug = vim.fn['plug#']
@@ -21,7 +21,8 @@ call('plug#begin', plug_install)
 --Plug('nvim-lua/popup.vim')
 Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim')
-Plug('nvim-telescope/telescope-fzf-native.nvim', {['do'] = function() vim.cmd('silent !make') end})
+Plug('nvim-telescope/telescope-fzf-native.nvim', {['do'] = function() vim.call('make') end})
+Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug('kyazdani42/nvim-web-devicons')
 
 -- Treesitter
@@ -31,7 +32,7 @@ Plug('simrat39/symbols-outline.nvim')
 
 -- LSP
 Plug('neovim/nvim-lspconfig')
-Plug('glepnir/lspsaga.nvim')
+Plug('RRethy/vim-illuminate')
 Plug('simrat39/rust-tools.nvim')
 
 -- Completion
@@ -44,7 +45,7 @@ Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-emoji')
 Plug('saadparwaiz1/cmp_luasnip')
 
--- Snip 
+-- Snip
 Plug('L3MON4D3/LuaSnip')
 Plug('rafamadriz/friendly-snippets')
 
@@ -63,6 +64,6 @@ Plug('lukas-reineke/indent-blankline.nvim')
 call('plug#end')
 call('plug#helptags')
 
-if plug_install == 1 then
+if pinstall == 1 then
     call('PlugInstall --sync')
 end
