@@ -15,7 +15,7 @@ M.setup = function()
         vim.fn.sign_define(sign.name, {texthl = sign.name, text = sign.text, numhl = ""})
     end
 
-    local config = {
+local config = {
         virtual_text = false,
         signs = {
             active = signs,
@@ -78,7 +78,7 @@ local function lsp_keymaps(bufnr)
     map(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setqflist({open = true})", opts)
     map(bufnr, "n", "<leader>rca", "<cmd>lua vim.lsp.buf.code_action<CR>", opts)
     map(bufnr, "n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting<CR>", opts)
-    --* vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist({open = true}), opts)
+    map(bufnr, "n", "<leader>ql", "<cmd>lua vim.diagnostic.setloclist({open = true})<CR>", opts)
 end
 
 M.on_attach = function(client, bufnr)
@@ -90,6 +90,14 @@ M.on_attach = function(client, bufnr)
 
     M.capabilities.textDocument.completion.completionItem.snippetSupport = true
     M.capabilities = cmp_nvim_lsp.update_capabilities(M.capabilities)
+
+    if client == 'clangd' then
+        local clangd_cmp = M.capabilities
+        clangd_cmp.textDocument.semanticHighlighting = true
+        clangd_cmp.offsetEncoding = 'utf-8'
+        M.capabilities = clangd_cmp
+    end
+
 
     lsp_keymaps(bufnr)
     lsp_highlight_document(client)

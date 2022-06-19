@@ -22,9 +22,10 @@ local mode_color = {
   v = "#c586c0",
   [""] = "#c586c0",
   V = "#c586c0",
-  -- c = '#B5CEA8',
-  -- c = '#D7BA7D',
+  --c = '#B5CEA8',
+  --c = '#D7BA7D',
   c = "#4EC9B0",
+  --c = "#4FFF00",
   no = "#569cd6",
   s = "#ce9178",
   S = "#ce9178",
@@ -42,15 +43,14 @@ local mode_color = {
 }
 
 local mode = {
-  function()
-    return "▊"
-  end,
-  color = function()
-    -- auto change color according to neovims mode
-    return { fg = mode_color[vim.fn.mode()] }
-  end,
-  -- padding = { right = 1 },
-  padding = 0,
+    function()
+        return "▊"
+    end,
+
+    color = function()
+        return { fg = mode_color[vim.fn.mode()] }
+    end,
+    padding = 0,
 }
 
 local hide_in_width = function()
@@ -73,7 +73,6 @@ local diff = {
   colored = true,
   symbols = { added = icons.git.Add .. " ", modified = icons.git.Mod .. " ", removed = icons.git.Remove .. " " }, -- changes diff symbols
   cond = hide_in_width,
-  separator = "%#SLSeparator#" .. "│ " .. "%*",
 }
 
 -- local mode = {
@@ -112,21 +111,6 @@ local progress = {
    end,
    padding = 1,
 }
-
--- local progress = {
---   "progress",
---   fmt = function(str)
---     print(vim.fn.expand(str))
---     if str == "1%" then
---       return "TOP"
---     end
---     if str == "100%" then
---       return "BOT"
---     end
---     return str
---   end,
---   -- padding = 0,
--- }
 
 local current_signature = function()
   if not pcall(require, "lsp_signature") then
@@ -167,8 +151,7 @@ lualine.setup {
   options = {
     globalstatus = true,
     icons_enabled = true,
-    -- theme = "auto",
-    theme = 'gruvbox',
+    theme = "auto",
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
     disabled_filetypes = { },
@@ -178,7 +161,6 @@ lualine.setup {
     lualine_a = { mode,'mode', mode, branch },
     lualine_b = { diagnostics },
     lualine_c = { { current_signature, cond = hide_in_width } },
-    -- lualine_x = { diff, spaces, "encoding", filetype },
     lualine_x = { diff, spaces, 'encoding', filetype },
     lualine_y = { progress },
     lualine_z = { location },

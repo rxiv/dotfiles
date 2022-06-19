@@ -38,6 +38,8 @@ nmap("<S-h>", ":bprevious<CR>")
 nmap("<A-j>",   "<ESC>:m .+1<CR>==gi")
 nmap("<A-k>", "<ESC>:m .-2<CR>==gi")
 
+nmap( "<C-f>", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>")
+
 -- Insert Mode --
 -- QUick Nav in Insert
 imap("<C-a>","<HOME>")
