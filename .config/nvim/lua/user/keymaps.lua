@@ -1,5 +1,5 @@
 
-vim.keymap.set("", "<Space>", "<Nop>", opts)
+vim.keymap.set("", "<Space>", "<Nop>", {noremap = true, silent = true})
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -16,11 +16,9 @@ nmap("<C-l>", "<C-w>l")
 
 -- Window Nav
 nmap("<leader><CR>", "<cmd>so " .. vim.fn.stdpath('config') .. "/init.lua<CR>")
+nmap("<leader><C-r>", "<cmd>luafile " .. vim.fn.stdpath('config') .. "/init.lua<CR>")
 nmap("n", "nzzzv")
 nmap("N", "Nzzzv")
-
-nmap("<F4>", "<cmd>Telescope resume<CR>")
-nmap("<F5>", "<cmd>Telescope commands<CR>")
 
 nmap("<leader>ct", "<cmd>TSContextToggle<CR>")
 
@@ -38,7 +36,17 @@ nmap("<S-h>", ":bprevious<CR>")
 nmap("<A-j>",   "<ESC>:m .+1<CR>==gi")
 nmap("<A-k>", "<ESC>:m .-2<CR>==gi")
 
+-- Telescope
+nmap("<F4>", "<cmd>Telescope resume<CR>")
 nmap( "<C-f>", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>")
+nmap( "<C-s>", "<cmd>Telescope live_grep theme=ivy<cr>")
+nmap("<leader>tg", "<cmd>Telescope git_branches<CR>")
+nmap("<leader>tt", "<cmd>Telescope marks<CR>")
+nmap("<leader>th", "<cmd>Telescope help_tags<CR>")
+nmap("<leader>tk", "<cmd>Telescope keymaps<CR>")
+nmap("<leader>tm", "<cmd>Telescope man_pages<CR>")
+nmap("<leader>tr", "<cmd>Telescope registers<CR>")
+nmap("<leader>tc", "<cmd>Telescope commands<CR>")
 
 -- Insert Mode --
 -- QUick Nav in Insert

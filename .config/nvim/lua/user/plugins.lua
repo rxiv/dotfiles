@@ -60,6 +60,7 @@ Plug('cohama/lexima.vim')
 Plug('rcarriga/nvim-notify')
 Plug('nvim-lualine/lualine.nvim')
 Plug('lukas-reineke/indent-blankline.nvim')
+Plug('cappyzawa/trim.nvim')
 
 call('plug#end')
 call('plug#helptags')

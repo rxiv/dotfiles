@@ -21,10 +21,10 @@ local check_backspace = function()
   return col == 0 or fn.getline("."):sub(col, col):match "%s"
 end
 
-local has_words_before = function()
-    local line, col = unpack(api.nvim_win_get_cursor(0))
-    return col ~= 0 and api.nvim_buf_get_lines(0, line-1, line, true)[1]:sub(col, col):match("%s") == nil
-end
+--local has_words_before = function()
+--    local line, col = unpack(api.nvim_win_get_cursor(0))
+--    return col ~= 0 and api.nvim_buf_get_lines(0, line-1, line, true)[1]:sub(col, col):match("%s") == nil
+--end
 
 
 cmp.setup {
@@ -34,9 +34,9 @@ cmp.setup {
     end,
   },
 
-  enabled = function()
-    return api.nvim_buf_get_option(0, "buftype") ~= "prompt" -- or cmp_dap.is_dap_buffer()
-  end,
+ -- enabled = function()
+ --   return api.nvim_buf_get_option(0, "buftype") ~= "prompt" -- or cmp_dap.is_dap_buffer()
+ -- end,
 
   mapping = cmp.mapping.preset.insert {
     ["<C-k>"] = cmp.mapping.select_prev_item(),
@@ -83,24 +83,16 @@ cmp.setup {
     format = function(entry, vim_item)
       -- Kind icons
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-
---      if entry.source.name == "cmp_tabnine" then
---        -- if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
---        -- menu = entry.completion_item.data.detail .. " " .. menu
---        -- end
---        vim_item.kind = icons.misc.Robot
---      end
-      -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+      --vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       -- NOTE: order matters
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
         nvim_lua = "[Nvim]",
         luasnip = "[Snippet]",
         buffer = "[Buffer]",
+        cmdline = "[CMD]",
         path = "[Path]",
         emoji = "[Emoji]",
-        cmdline = "[CMD]",
-        dap = "[DAP]",
       })[entry.source.name]
       return vim_item
     end,
@@ -110,10 +102,9 @@ cmp.setup {
     { name = "nvim_lua" },
     { name = "luasnip" },
     { name = "buffer" },
-    { name = "cmpline" },
+    { name = "cmdline" },
     { name = "path" },
     { name = "emoji" },
-    --{ name = "dap" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
