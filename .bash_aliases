@@ -15,7 +15,7 @@
 alias debug="set -o nounset; set -o xtrace"
 alias undebug="set +o nounset; set +o xtrace"
 
-alias rm='rm -I'
+# alias rm='rm -I'
 alias cp='cp -i'
 alias mv='mv -i'
 
@@ -110,3 +110,6 @@ alias make='xtitle Making $(basename $PWD) ; make'
 
 alias lg='lazygit'
 alias yt='yt-dlp'
+
+alias tma='tmux attach'
+alias tml='tmux list-session'

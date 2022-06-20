@@ -22,7 +22,6 @@
 # For example, I see 'Bold Red' as 'orange' on my screen,
 # hence the 'Green' 'BRed' 'Red' sequence I often use in my prompt.
 
-
 # Normal Colors
 Black='\e[0;30m'        # Black
 Red='\e[0;31m'          # Red
@@ -86,11 +85,9 @@ unset MAILCHECK        # Don't want my shell to warn me of incoming mail.
 # Source global definitions (if any)
 #-------------------------------------------------------------
 
-
 if [ -f /etc/bashrc ]; then
       . /etc/bashrc   # --> Read /etc/bashrc, if present.
 fi
-
 
 case $TERM in
 	alacritty )
@@ -156,7 +153,6 @@ if [ -x /usr/bin/figlet ]; then
     echo
 fi
 
-
 function _exit()              # Function to run upon exit of shell.
 {
     echo -e "${BRed}Hasta la vista, baby${NC}"
@@ -198,7 +194,6 @@ trap _exit EXIT
 #    Command is added to the history file each time you hit enter,
 #    so it's available to all shells (using 'history -a').
 
-
 # Test connection type:
 if [ -n "${SSH_CONNECTION}" ]; then
     CNX=${Green}        # Connected on remote machine, via ssh (good).
@@ -216,7 +211,6 @@ elif [[ ${USER} != $(logname) ]]; then
 else
     SU=${BCyan}         # User is normal (well ... most of us are).
 fi
-
 
 NCPU=$(grep -c 'processor' /proc/cpuinfo)    # Number of CPUs
 SLOAD=$(( 100*${NCPU} ))        # Small load
@@ -302,14 +296,11 @@ case ${TERM} in
         ;;
 esac
 
-
-
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export HISTIGNORE="&:bg:fg:ll:h:ls"
 export HISTTIMEFORMAT="$(echo -e ${BCyan})[%d/%m %H:%M:%S]$(echo -e ${NC}) "
 export HISTCONTROL=ignoredups
 export HOSTFILE=$HOME/.hosts    # Put a list of remote hosts in ~/.hosts
-
 
 # Adds some text in the terminal frame (if applicable).
 
@@ -322,7 +313,6 @@ function xtitle()
     esac
 }
 
-
 function man()
 {
     for i ; do
@@ -330,7 +320,6 @@ function man()
         command man -a "$i"
     done
 }
-
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -353,11 +342,9 @@ fi
 function firefox() { command firefox "$@" & }
 function xpdf() { command xpdf "$@" & }
 
-
 #-------------------------------------------------------------
 # File & strings related functions:
 #-------------------------------------------------------------
-
 
 # Find a file with a pattern in name:
 function ff() { find . -type f -iname '*'"$*"'*' -ls ; }
@@ -391,6 +378,30 @@ xargs -0 egrep --color=always -sn ${case} "$1" 2>&- | more
 
 }
 
+function cuttail()
+{
+    nlines=${2:10}
+    sed -n -e :a -e "1,${nlines}!{P;N;D;};N;ba" $1
+}
+
+function lowercase()
+{
+    for file ; do
+        filename=$file{file##*/}
+        case "$filename" in
+            */*) dirname==${file%/*} ;;
+            *) dirname=.;;
+        esac
+        nf=$(echo $filename | tr A-Z a-z)
+        newname="${dirname}/${nf}"
+        if [ "$nf" != "$filename" ]; then
+            mv "$file" "$newname"
+            echo "lowercase: $file --> $newname"
+        else
+            echo "lowercase: $file not changed."
+        fi
+    done
+}
 
 function swap()
 { # Swap 2 filenames around, if they exist (from Uzi's bashrc).
@@ -445,10 +456,8 @@ function nospaces() { for file in *; do mv "$file" `echo $file | tr ' ' '_'`; do
 # Process/system related functions:
 #-------------------------------------------------------------
 
-
 function my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,bsdtime,command ; }
 function pp() { my_ps f | awk '!/awk/ && $0~var' var=${1:-".*"} ; }
-
 
 function killps()   # kill by process name
 {
@@ -492,7 +501,6 @@ function mydf()         # Pretty-print of 'df' output.
     done
 }
 
-
 export IP=`ip route | awk 'NR==1{print $9}'`
 
 function my_ip() # Get IP adress on ethernet.
@@ -529,7 +537,6 @@ function repeat()       # Repeat n times command.
     done
 }
 
-
 function ask()          # See 'killps' for example of use.
 {
     echo -n "$@" '[y/n] ' ; read ans
@@ -546,10 +553,8 @@ function corename()   # Get name of app that created a corefile.
     done
 }
 
-
 if [ -f ~/.bash_completion ]; then
     . ~/.bash_completion
 fi
 
 eval $(keychain --eval --quiet id_rsa_nopw)
-
