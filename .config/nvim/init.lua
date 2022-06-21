@@ -16,5 +16,6 @@ require("user.cmp")
 require("user.lualine")
 require("user.indentline")
 require("user.trim")
+require("user.gitsigns")
 
 require("user.lsp")

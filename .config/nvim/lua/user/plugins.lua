@@ -55,12 +55,15 @@ Plug('lunarvim/darkplus.nvim')
 
 -- Misc
 Plug('tpope/vim-surround')
-Plug('tpope/vim-fugitive')
 Plug('cohama/lexima.vim')
 Plug('rcarriga/nvim-notify')
 Plug('nvim-lualine/lualine.nvim')
 Plug('lukas-reineke/indent-blankline.nvim')
 Plug('cappyzawa/trim.nvim')
+
+--Git
+Plug("lewis6991/gitsigns.nvim")
+Plug('tpope/vim-fugitive')
 
 call('plug#end')
 call('plug#helptags')

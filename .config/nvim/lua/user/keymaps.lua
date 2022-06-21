@@ -1,4 +1,3 @@
-
 vim.keymap.set("", "<Space>", "<Nop>", {noremap = true, silent = true})
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -40,13 +39,22 @@ nmap("<A-k>", "<ESC>:m .-2<CR>==gi")
 nmap("<F4>", "<cmd>Telescope resume<CR>")
 nmap( "<C-f>", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>")
 nmap( "<C-s>", "<cmd>Telescope live_grep theme=ivy<cr>")
-nmap("<leader>tg", "<cmd>Telescope git_branches<CR>")
+nmap("<leader>tgb", "<cmd>Telescope git_branches<CR>")
+nmap("<leader>tgc", "<cmd>Telescope git_commits<CR>")
+nmap("<leader>tgs", "<cmd>Telescope git_status<CR>")
 nmap("<leader>tt", "<cmd>Telescope marks<CR>")
 nmap("<leader>th", "<cmd>Telescope help_tags<CR>")
 nmap("<leader>tk", "<cmd>Telescope keymaps<CR>")
 nmap("<leader>tm", "<cmd>Telescope man_pages<CR>")
 nmap("<leader>tr", "<cmd>Telescope registers<CR>")
 nmap("<leader>tc", "<cmd>Telescope commands<CR>")
+
+-- GitSigns
+nmap("<leader>gsn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>")
+nmap("<leader>gsp", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>")
+nmap("<leader>gsr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>")
+nmap("<leader>gdt", "<cmd>Gitsigns diffthis<cr>")
+nmap("<leader>gds", "<cmd>lua require 'gitsigns'.stage_hunk()<cr>")
 
 -- Insert Mode --
 -- QUick Nav in Insert
@@ -69,4 +77,3 @@ xmap("J", ":move '>+1<CR>gv-gv")
 xmap("K", ":move '<-2<CR>gv-gv")
 xmap("<A-j>", ":move '>+1<CR>gv-gv")
 xmap("<A-k>", ":move '<-2<CR>gv-gv")
-
