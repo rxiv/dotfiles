@@ -150,7 +150,7 @@ if [ -x /usr/games/fortune ]; then
     /usr/games/fortune -s     # Makes our day a bit more fun.... :-)
 fi
 if [ -x /usr/bin/figlet ]; then
-    echo ${HOSTNAME} | ruby -p -e '$_.gsub!(/(?<=.)(?!$)/m, " ")' | /usr/bin/figlet -fcosmic -w180 | lolcat
+   echo ${HOSTNAME} | sed 's/\(.\)/\1 /g' | /usr/bin/figlet -fcosmic -w180 | lolcat
     echo
     echo
 fi
