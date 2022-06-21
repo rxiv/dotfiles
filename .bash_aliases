@@ -113,3 +113,5 @@ alias yt='yt-dlp'
 
 alias tma='tmux attach'
 alias tml='tmux list-session'
+
+alias cb='xclip -sel clip'
