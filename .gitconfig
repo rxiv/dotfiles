@@ -9,3 +9,5 @@
 
 [color]
         ui = true
+[hub]
+	protocol = ssh
