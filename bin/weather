@@ -1,0 +1,6 @@
+#!/bin/bash
+
+EIP=`curl -s https://ipinfo.io/ip`
+CITY=`curl -s https://ipapi.co/${EIP}/city`
+
+curl wttr.in/${CITY}
