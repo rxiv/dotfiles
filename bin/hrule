@@ -1,4 +1,6 @@
 #!/bin/sh
 
+HRULEWIDTH=$(stty size | awk {'print $2'-19})
+
 ch="${1:-#}"
 echo $(echon "$ch" $HRULEWIDTH | cut -c 1-$HRULEWIDTH )
