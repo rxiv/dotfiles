@@ -2,7 +2,8 @@
 \.gitignore
 
 tmux.shortcuts
-^/bin/*
+^/bin/sync-dot
+^/bin/update-dot
 ^/README.*
 ^/LICENSE.*
 ^/COPYING
