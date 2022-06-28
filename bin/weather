@@ -1,6 +1,9 @@
-#!/bin/bash
+#!/bin/env bash
 
-EIP=`curl -s https://ipinfo.io/ip`
-CITY=`curl -s https://ipapi.co/${EIP}/city`
+if [[ -z "$CITY" ]]; then
+    echo "Finding City..."
+    CITY=$(curl -s https://ipapi.co/$(curl -s https://ipinfo.io/ip)/city)
+fi
 
+#echo ${CITY}
 curl wttr.in/${CITY}
