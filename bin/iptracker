@@ -8,7 +8,7 @@ case $1 in
         curl -sX GET "${HOST}:${PORT}/comp" | jq -r 'to_entries[] | [.value.ip, .value.name] | @tsv'
         ;;
     update)
-        curl -X PUT "${HOST}:${PORT}/comp" -H 'Content-Type: application/json' \
+        curl -o /dev/null -sX PUT "${HOST}:${PORT}/comp" -H 'Content-Type: application/json' \
             -d '{"name":"'${HOSTNAME}'", "ip":"'${IP}'" }'
         ;;
     hosts)

@@ -530,5 +530,5 @@ function corename()   # Get name of app that created a corefile.
 if [ -f ~/.bash_completion ]; then
     . ~/.bash_completion
 fi
-
+eval $(~/bin/iptracker update)
 eval $(keychain --eval --quiet id_rsa_nopw)
