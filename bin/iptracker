@@ -1,0 +1,30 @@
+#!/bin/env bash
+
+HOST="http://cupid"
+PORT="8080"
+
+case $1 in
+    list)
+        curl -sX GET "${HOST}:${PORT}/comp" | jq -r 'to_entries[] | [.value.ip, .value.name] | @tsv'
+        ;;
+    update)
+        curl -X PUT "${HOST}:${PORT}/comp" -H 'Content-Type: application/json' \
+            -d '{"name":"'${HOSTNAME}'", "ip":"'${IP}'" }'
+        ;;
+    hosts)
+        [[ "$EUID" -ne 0  ]] && echo "Must run hosts as root." && exit 1
+
+        curl -sX GET "${HOST}:${PORT}/comp" | \
+            jq -r 'to_entries[] | [.value.ip, .value.name] | @tsv' \
+            > /tmp/hosts.xxx
+        cat /etc/hosts.stub /tmp/hosts.xxx >> /tmp/hosts.new
+        mv /etc/hosts /etc/hosts.bak
+        mv /tmp/hosts.new /etc/hosts
+        ;;
+    *)
+        echo "Usage: iptracker [arg]"
+        echo "      [arg] list   - lists hosts in hostfile format"
+        echo "      [arg] hosts  - creates new hosts file"
+        echo "      [arg] update - add current to iptrack"
+        ;;
+esac
