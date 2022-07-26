@@ -463,7 +463,8 @@ schemes:
   tokyonight: &tokyonight
 # Default colors
     primary:
-      background: '0x1a1b26'
+      #background: '0x1a1b26'
+      background: '0x000000'
       foreground: '0xa9b1d6'
 
     # Normal colors
@@ -597,7 +598,8 @@ schemes:
 # *solarized-dark
 # *tomorrow-night
 
-colors: *gruvbox-dark
+#colors: *gruvbox-dark
+colors: *tokyonight
 
 #######################################
 ##       END OF COLOR SCHEMES        ##
