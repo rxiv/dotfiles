@@ -31,6 +31,9 @@ nmap("<C-Right>", ":vertical resize +2<CR>")
 nmap("<S-l>", ":bnext<CR>")
 nmap("<S-h>", ":bprevious<CR>")
 
+-- Undotree
+nmap("<leader>u", vim.cmd.UndotreeToggle)
+
 -- Move text up and down
 nmap("<A-j>",   "<ESC>:m .+1<CR>==gi")
 nmap("<A-k>", "<ESC>:m .-2<CR>==gi")
@@ -48,9 +51,10 @@ nmap("<leader>tk", "<cmd>Telescope keymaps<CR>")
 nmap("<leader>tm", "<cmd>Telescope man_pages<CR>")
 nmap("<leader>tr", "<cmd>Telescope registers<CR>")
 nmap("<leader>tc", "<cmd>Telescope commands<CR>")
-nmap("<leader>tp", function() builtin.grep_string({ search = vim.fn.input("Grep >") }))
+nmap("<leader>tp", "<cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input('Grep > ') })<cr>")
 
 -- GitSigns
+nmap("<leader>gp", vim.cmd.Git)
 nmap("<leader>gsn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>")
 nmap("<leader>gsp", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>")
 nmap("<leader>gsr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>")

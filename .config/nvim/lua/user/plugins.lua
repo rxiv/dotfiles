@@ -60,6 +60,7 @@ Plug('rcarriga/nvim-notify')
 Plug('nvim-lualine/lualine.nvim')
 Plug('lukas-reineke/indent-blankline.nvim')
 Plug('cappyzawa/trim.nvim')
+Plug('mbbill/undotree')
 
 --Git
 Plug("lewis6991/gitsigns.nvim")

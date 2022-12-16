@@ -57,7 +57,6 @@ local hide_in_width = function()
   return vim.fn.winwidth(0) > 80
 end
 
-
 local diagnostics = {
   "diagnostics",
   sources = { "nvim_diagnostic" },
@@ -99,17 +98,7 @@ local branch = {
 local progress = {
   "progress",
   color = "SLProgress",
-   fmt = function(str)
-     print(vim.fn.expand(str))
-     if str == "1%" then
-       return "TOP"
-     end
-     if str == "100%" then
-       return "BOT"
-     end
-     return str
-   end,
-   padding = 1,
+  padding = 1,
 }
 
 local current_signature = function()
@@ -162,8 +151,8 @@ lualine.setup {
     lualine_b = { diagnostics },
     lualine_c = { { current_signature, cond = hide_in_width } },
     lualine_x = { diff, spaces, 'encoding', filetype },
-    lualine_y = { progress },
-    lualine_z = { location },
+    lualine_y = { },
+    lualine_z = { progress,location },
   },
   inactive_sections = {
     lualine_a = {},
