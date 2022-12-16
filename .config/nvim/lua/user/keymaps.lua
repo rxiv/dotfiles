@@ -48,6 +48,7 @@ nmap("<leader>tk", "<cmd>Telescope keymaps<CR>")
 nmap("<leader>tm", "<cmd>Telescope man_pages<CR>")
 nmap("<leader>tr", "<cmd>Telescope registers<CR>")
 nmap("<leader>tc", "<cmd>Telescope commands<CR>")
+nmap("<leader>tp", function() builtin.grep_string({ search = vim.fn.input("Grep >") }))
 
 -- GitSigns
 nmap("<leader>gsn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>")
