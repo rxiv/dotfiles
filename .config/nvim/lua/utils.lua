@@ -1,7 +1,7 @@
 local fn = vim.fn
 
 -- inspect something
-function inspect(item)
+function Inspect(item)
   vim.pretty_print(item)
 end
 
@@ -46,4 +46,3 @@ function M.xmap(l, r, opts)
 end
 
 return M
-

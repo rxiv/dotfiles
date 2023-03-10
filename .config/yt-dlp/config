@@ -2,4 +2,5 @@
 -x
 -o ~/music/%(title)s.%(ext)s
 --audio-quality 7
-
+--extract-audio
+--audio-format opus

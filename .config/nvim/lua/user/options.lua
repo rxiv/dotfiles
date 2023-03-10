@@ -74,3 +74,5 @@ end
 --vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set formatoptions-=cro]]
+vim.cmd [[let g:loaded_perl_provider = 0]]
+vim.cmd [[let g:loaded_ruby_provider = 0]]

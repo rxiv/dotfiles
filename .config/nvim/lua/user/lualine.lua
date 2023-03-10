@@ -152,7 +152,7 @@ lualine.setup {
     lualine_c = { { current_signature, cond = hide_in_width } },
     lualine_x = { diff, spaces, 'encoding', filetype },
     lualine_y = { },
-    lualine_z = { progress,location },
+    lualine_z = { progress, location },
   },
   inactive_sections = {
     lualine_a = {},

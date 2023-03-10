@@ -75,7 +75,7 @@ local function lsp_keymaps(bufnr)
     --* vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float(nil, {{opts2}, scope="line"}), opts)
     map(bufnr, "n", "[d", "<cmd>lua vim.diagnostic.goto_prev<CR>", opts)
     map(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next<CR>", opts)
-    map(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setqflist({open = true})", opts)
+    map(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setqflist({open = true})<CR>", opts)
     map(bufnr, "n", "<leader>rca", "<cmd>lua vim.lsp.buf.code_action<CR>", opts)
     map(bufnr, "n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting<CR>", opts)
     map(bufnr, "n", "<leader>ql", "<cmd>lua vim.diagnostic.setloclist({open = true})<CR>", opts)
@@ -99,7 +99,7 @@ M.on_attach = function(client, bufnr)
     end
 
     lsp_keymaps(bufnr)
-    lsp_highlight_document(client)
+    --lsp_highlight_document(client)
 end
 
 return M

@@ -4,5 +4,5 @@ if not status_ok then
 end
 
 --require "user.lsp.lsp-signature"
-require "user.lsp.servers"
+require("user.lsp.servers")
 require("user.lsp.handlers").setup()
